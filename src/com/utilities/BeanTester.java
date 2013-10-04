@@ -1,4 +1,4 @@
-package com.beans.utilities;
+package com.utilities;
 
 import java.lang.reflect.Field;
 import java.util.logging.Level;

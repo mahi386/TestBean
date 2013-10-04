@@ -1,11 +1,11 @@
-package com.beans.tests;
+package com.tests;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.beans.Address;
-import com.beans.utilities.BeanTester;
+import com.utilities.BeanTester;
 
 public class AddressTest {
 private BeanTester<Address> beanTester;

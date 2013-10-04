@@ -1,11 +1,11 @@
-package com.beans.tests;
+package com.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import com.beans.Person;
-import com.beans.utilities.BeanTester;
+import com.utilities.BeanTester;
 
 public class PersonTest {
 	private BeanTester<Person> beanTester;
