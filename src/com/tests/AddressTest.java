@@ -25,7 +25,7 @@ public class AddressTest {
 	}
 	
 	/**
-	 * This test tests if getters are present for all fields in the class and the names are in the proper format
+	 * This test tests if setters are present for all fields in the class and the names are in the proper format
 	 */
 	@Test
 	public void testSettersAddress() {

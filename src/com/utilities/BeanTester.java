@@ -1,11 +1,14 @@
 package com.utilities;
 
+import static org.junit.Assert.fail;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Contains utility method to test that getters/setters are present for the specified bean
+ * Contains utility methods to test that getters/setters are present for the specified bean
  * @author Prajakta
  */
 public class BeanTester<T> {
@@ -61,11 +64,13 @@ public class BeanTester<T> {
 		Field[] allFields = testClassName.getDeclaredFields();
 		boolean hasSetters = true;
 		for(Field aField:allFields){
-			try{
-				testSetterMethod(aField);
-			}catch(NoSuchMethodException e){
-				logger.log(Level.SEVERE, testClassName.getName() + " Issue with setter for field " + aField.getName());
-				hasSetters = false;
+			if(!Modifier.isFinal(aField.getModifiers())){
+				try{
+					testSetterMethod(aField);
+				}catch(NoSuchMethodException e){
+					logger.log(Level.SEVERE, testClassName.getName() + " Issue with setter for field " + aField.getName());
+					hasSetters = false;
+				}
 			}
 		}
 		return hasSetters;
@@ -86,5 +91,53 @@ public class BeanTester<T> {
 		} catch (NoSuchMethodException ex) {
 			throw new NoSuchMethodException();
 		}
+	}
+	
+	/**
+	 * Test for a specific setter
+	 * @param fieldName The field name that needs to be checked for a setter
+	 * @return
+	 */
+	public boolean testSetterForField(String fieldName){
+		if(fieldName == null){
+			throw new IllegalArgumentException();
+		}
+		try {
+			Field aField = testClassName.getDeclaredField(fieldName);
+			if(Modifier.isFinal(aField.getModifiers())){
+				logger.log(Level.SEVERE, testClassName.getName() + " Final field will not have a setter " + aField.getName());
+				fail(" Final field will not have a setter " + aField.getName());
+			}
+			testSetterMethod(aField);
+		} catch (NoSuchFieldException ex) {
+			logger.log(Level.SEVERE, testClassName.getName() + " Issue with setter for field. No field found by the name: " + fieldName);
+			fail(" Issue with setter for field. No field found by the name: " + fieldName);
+		}catch(NoSuchMethodException e){
+			logger.log(Level.SEVERE, testClassName.getName() + " Issue with setter for field " + fieldName);
+			fail(" Issue with setter for field " + fieldName);
+		}
+		return true;
+	}
+	
+	/**
+	 * Test for a specific getter
+	 * @param fieldName The field name that needs to be checked for a getter
+	 * @return
+	 */
+	public boolean testGetterForField(String fieldName){
+		if(fieldName == null){
+			throw new IllegalArgumentException();
+		}
+		try {
+			Field aField = testClassName.getDeclaredField(fieldName);
+			testGetterMethod(aField);
+		} catch (NoSuchFieldException ex) {
+			logger.log(Level.SEVERE, testClassName.getName() + " Issue with getter for field. No field found by the name: " + fieldName);
+			fail(" Issue with getter for field. No field found by the name:" + fieldName);
+		}catch(NoSuchMethodException e){
+			logger.log(Level.SEVERE, testClassName.getName() + " Issue with getter for field " + fieldName);
+			fail(" Issue with getter for field " + fieldName);
+		}
+		return true;
 	}
 }

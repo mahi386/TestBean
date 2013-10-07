@@ -7,6 +7,20 @@ public class Address {
 	private String zipcode;
 	private String country;
 	
+	public Address(){
+		this.city="Raleigh";
+		this.addressLine1="NC State";
+		this.zipcode = "27607";
+		this.country = "US";
+	}
+	
+	public Address(String city,String addressLine1,String zipcode,String country){
+		this.city = city;
+		this.addressLine1 = addressLine1;
+		this.zipcode = zipcode;
+		this.country = country;
+	}
+	
 	public String getCity() {
 		return city;
 	}
