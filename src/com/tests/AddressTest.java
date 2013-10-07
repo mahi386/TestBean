@@ -32,4 +32,51 @@ public class AddressTest {
 		assertTrue(beanTester.testSetters());
 	}
 	
+	/**
+	 * This test tests if getters are present for specific fields in the class and the names are in the proper format
+	 */
+	@Test
+	public void testIndividualGettersAddress() {
+		assertTrue(beanTester.testGetterForField("zipcode"));
+	}
+	
+	/**
+	 * This test tests if setters are present for specific fields in the class and the names are in the proper format
+	 */
+	@Test
+	public void testIndividualSettersAddress() {
+		assertTrue(beanTester.testSetterForField("zipcode"));
+	}
+	
+	/**
+	 * This test tests that exception is thrown if null is passed as a field for the getter
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void testPassNullToGettersAddress() {
+		beanTester.testGetterForField(null);
+	}
+	
+	/**
+	 * This test tests that exception is thrown if null is passed as a field for the setter
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void testPassNullToSettersAddress() {
+		beanTester.testSetterForField(null);
+	}
+	
+	/**
+	 * This test tests that if invalidfield is passed as a field for the getter 
+	 */
+	@Test(expected=AssertionError.class)
+	public void testPassInvalidFieldToGettersAddress() {
+		beanTester.testGetterForField("invalid");
+	}
+	
+	/**
+	 * This test tests that invalidfield is passed as a field for the setter 
+	 */
+	@Test(expected=AssertionError.class)
+	public void testPassInvalidToSettersAddress() {
+		beanTester.testSetterForField("invalid");
+	}
 }

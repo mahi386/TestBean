@@ -21,6 +21,7 @@ public class BeanTester<T> {
 	
 	/**
 	 * This method tests all the getters in this class
+	 * @return true if getters are present for all variables in this class
 	 */
 	public boolean testGetters(){
 		Field[] allFields = testClassName.getDeclaredFields();
@@ -39,7 +40,7 @@ public class BeanTester<T> {
 	/**
 	 * This tests if a getter method is present in the required format
 	 * @param fieldName the field name of the field
-	 * @throws NoSuchMethodException 
+	 * @throws NoSuchMethodException if a getter for the field is not present then this exception is thrown 
 	 */
 	private void testGetterMethod(Field field) throws NoSuchMethodException {
 		StringBuilder fieldNameBuilder = new StringBuilder();
@@ -79,7 +80,7 @@ public class BeanTester<T> {
 	/**
 	 * This tests if a getter method name is present in the required format
 	 * @param fieldName the field name of the field
-	 * @throws NoSuchMethodException 
+	 * @throws NoSuchMethodException if a  setter method is not found for this field this exception is thrown
 	 */
 	private void testSetterMethod(Field field) throws NoSuchMethodException {
 		//this method is private so field will never be null
@@ -96,7 +97,7 @@ public class BeanTester<T> {
 	/**
 	 * Test for a specific setter
 	 * @param fieldName The field name that needs to be checked for a setter
-	 * @return
+	 * @return if setter is present for this field then true is returned
 	 */
 	public boolean testSetterForField(String fieldName){
 		if(fieldName == null){
@@ -122,7 +123,7 @@ public class BeanTester<T> {
 	/**
 	 * Test for a specific getter
 	 * @param fieldName The field name that needs to be checked for a getter
-	 * @return
+	 * @return if a getter is present for the field then a true is returned
 	 */
 	public boolean testGetterForField(String fieldName){
 		if(fieldName == null){
